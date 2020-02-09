@@ -1,0 +1,36 @@
+{
+    "name": "sirjasongo/atk4m2m",
+    "description": "ATK4/Data Many-to-Many Relationship Trait",
+    "type": "library",
+    "keywords": [
+        "atk4",
+        "many-to-many",
+        "atk4/data",
+        "orm",
+        "odm"
+    ],
+    "homepage": "https://github.com/sirjasongo/atk4m2m/",
+    "time": "2020-02-10",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Go",
+            "email": "jasongo@sparkresearch.net",
+            "homepage": "https://github.com/sirjasongo/atk4m2m/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "jasongo@sparkresearch.net",
+        "issues": "https://github.com/sirjasongo/atk4m2m/issues",
+        "docs": "https://github.com/sirjasongo/atk4m2m/wiki"
+    },
+    "require": {
+        "atk4/data": ">=2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "sirjasongo\\atk4m2m\\": "/"
+        }
+    }
+}
