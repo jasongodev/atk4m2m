@@ -40,10 +40,6 @@ trait ManyToMany
         $this->addMethod('add' . $target, function ($m, $data, $field='') {
             $trace = debug_backtrace();
 
-            // This closure needs to know the function name it was called upon.
-            // Since the function name are dynamically created based on the $target name,
-            // the closure needs this info to reference the appropriate target and bridge classes.
-            // $trace[4]['args'][0] contains the function name.
             $target_class = $this->_m2m[$trace[4]['args'][0]][0];
             $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
             $default_field = $this->_m2m[$trace[4]['args'][0]][2];
@@ -82,10 +78,6 @@ trait ManyToMany
         $this->addMethod('remove' . $target, function ($m, $data, $field='') {
             $trace = debug_backtrace();
 
-            // This closure needs to know the function name it was called upon.
-            // Since the function name are dynamically created based on the $target name,
-            // the closure needs this info to reference the appropriate target and bridge classes.
-            // $trace[4]['args'][0] contains the function name.
             $target_class = $this->_m2m[$trace[4]['args'][0]][0];
             $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
             $default_field = $this->_m2m[$trace[4]['args'][0]][2];
@@ -120,10 +112,6 @@ trait ManyToMany
         $this->addMethod('has' . $target, function ($m, $data='', $field='') {
             $trace = debug_backtrace();
 
-            // This closure needs to know the function name it was called upon.
-            // Since the function name are dynamically created based on the $target name,
-            // the closure needs this info to reference the appropriate target and bridge classes.
-            // $trace[4]['args'][0] contains the function name.
             $target_class = $this->_m2m[$trace[4]['args'][0]][0];
             $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
             $default_field = $this->_m2m[$trace[4]['args'][0]][2];
