@@ -14,16 +14,8 @@ trait ManyToMany
 
         $this->_m2m[$target] = [$target_class, $bridge_class, $default_field];
         $this->addMethod($target, function ($m, $data='', $field='') {
-            $trace = debug_backtrace();
-
-            // This closure needs to know the function name it was called upon.
-            // Since the function name are dynamically created based on the $target name,
-            // the closure needs this info to reference the appropriate target and bridge classes.
-            // $trace[4]['args'][0] contains the function name.
-            $target_class = $this->_m2m[$trace[4]['args'][0]][0];
-            $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
-            $default_field = $this->_m2m[$trace[4]['args'][0]][2];
-            
+            $this->get_zombie($target_class, $bridge_class, $default_field);
+     
             $field = empty($field) ? $default_field : $field;
 
             if (!empty($data)) {
@@ -38,11 +30,7 @@ trait ManyToMany
 
         $this->_m2m['add'.$target] = [$target_class, $bridge_class, $default_field];
         $this->addMethod('add' . $target, function ($m, $data, $field='') {
-            $trace = debug_backtrace();
-
-            $target_class = $this->_m2m[$trace[4]['args'][0]][0];
-            $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
-            $default_field = $this->_m2m[$trace[4]['args'][0]][2];
+            $this->get_zombie($target_class, $bridge_class, $default_field);
             
             $field = empty($field) ? $default_field : $field;
             if (!$this->loaded()) {
@@ -76,11 +64,7 @@ trait ManyToMany
 
         $this->_m2m['remove'.$target] = [$target_class, $bridge_class, $default_field];
         $this->addMethod('remove' . $target, function ($m, $data, $field='') {
-            $trace = debug_backtrace();
-
-            $target_class = $this->_m2m[$trace[4]['args'][0]][0];
-            $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
-            $default_field = $this->_m2m[$trace[4]['args'][0]][2];
+            $this->get_zombie($target_class, $bridge_class, $default_field);
             
             $field = empty($field) ? $default_field : $field;
             if (!$this->loaded()) {
@@ -110,11 +94,7 @@ trait ManyToMany
 
         $this->_m2m['has'.$target] = [$target_class, $bridge_class, $default_field];
         $this->addMethod('has' . $target, function ($m, $data='', $field='') {
-            $trace = debug_backtrace();
-
-            $target_class = $this->_m2m[$trace[4]['args'][0]][0];
-            $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
-            $default_field = $this->_m2m[$trace[4]['args'][0]][2];
+            $this->get_zombie($target_class, $bridge_class, $default_field);
             
             $field = empty($field) ? $default_field : $field;
 
@@ -138,6 +118,18 @@ trait ManyToMany
         $this->addField($b_their_field);
         $this->hasOne($this->get_class_name($a), [$a, 'our_field'=> $a_their_field, 'their_field'=>$a::our_field]);
         $this->hasOne($this->get_class_name($b), [$b, 'our_field'=> $b_their_field, 'their_field'=>$b::our_field]);
+    }
+
+    public function get_zombie(&$target_class, &$bridge_class, &$default_field)
+    {
+        $trace = debug_backtrace();
+        // This closure needs to know the function name it was called upon.
+        // Since the function name are dynamically created based on the $target name,
+        // the closure needs this info to reference the appropriate target and bridge classes.
+        // $trace[4]['args'][0] contains the function name from the tryCall().
+        $target_class = $this->_m2m[$trace[4]['args'][0]][0];
+        $bridge_class = $this->_m2m[$trace[4]['args'][0]][1];
+        $default_field = $this->_m2m[$trace[4]['args'][0]][2];
     }
 
     public function get_their_field($target_class, $bridge_class)
