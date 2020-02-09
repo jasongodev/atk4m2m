@@ -5,7 +5,6 @@
     "keywords": [
         "atk4",
         "many-to-many",
-        "atk4/data",
         "orm",
         "odm"
     ],
@@ -26,8 +25,7 @@
         "docs": "https://github.com/sirjasongo/atk4m2m/wiki"
     },
     "require": {
-        "php": ">=7.0.0",
-        "atk4/data": "dev-master"
+        "atk4/data": "^2.0.0"
     },
     "autoload": {
         "psr-4": {
