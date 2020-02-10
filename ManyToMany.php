@@ -10,6 +10,7 @@ trait ManyToMany
         $target = $this->get_class_name($target_class);
         $bridge = $this->get_class_name($bridge_class);
         $this_their_field = $this->get_their_field($this, $bridge_class); //!empty($this::their_field[$bridge_class]) ? $this::their_field[$bridge_class] : (is_string($this::their_field) ? $this::their_field : $this::their_field[0]);
+        
         $this->hasMany($bridge, [$bridge_class, 'our_field'=> $this::our_field, 'their_field'=>$this_their_field]);
 
         $this->_m2m[$target] = [$target_class, $bridge_class, $default_field];
@@ -140,9 +141,6 @@ trait ManyToMany
 
     public function get_class_name($classname)
     {
-        if ($pos = strrpos($classname, '\\')) {
-            return substr($classname, $pos + 1);
-        }
-        return $pos;
+        return basename($classname);
     }
 }
