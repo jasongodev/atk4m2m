@@ -18,12 +18,12 @@ Therefore a bridge table is needed. Something like this is possible for the rela
 ```sql
 student_teacher table
 student_id	|	teacher_id
-	3		|		1
-	3		|		2
-	3		|		5
-	3		|		9
-	5		|		9
-	5		|		9
+3		|		1
+3		|		2
+3		|		5
+3		|		9
+5		|		9
+5		|		9
 ```
 As you can see, students may have many teachers and teachers may have many students as well. Overlaps are possible with many-to-many relationships.
 ## Usage of atk4m2m
@@ -114,3 +114,4 @@ In the example above, the method hasTeacher() is automatically created by callin
 In the bridge class example above, we created the bridge between Student class and Teacher class using the method addBridgeBetween(). You can interchange which class is placed as first and second argument, it does not matter.
 
 This method is mandatory to be called in the bridge class.
+## Getters and Setters
