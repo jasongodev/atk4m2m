@@ -62,6 +62,7 @@ class Teacher extends \atk4\data\Model
         parent::init();
 
         $this->addField('name', ['required' => true, 'type' => 'string']);
+        $this->addField('email', ['required' => true, 'type' => 'string']);
         $this->hasManyToMany(Student::class, Student_Teacher::class, 'name');
     }
 }
@@ -92,7 +93,7 @@ In the usual ATK4 Model, hasMany() defaults to id and table’s name + id as the
 ## Method $this-\>hasManyToMany()
 This method is placed on the first model and the target model in the many-to-many relationships.
 ```php
-$this->hasManyToMany(Student::class, Student_Teacher::class, 'name');
+$this->hasManyToMany(Teacher::class, Student_Teacher::class, 'name');
 ```
 The first argument is a class name of the target model, in our case it’s the Teacher::class.
 
@@ -115,3 +116,29 @@ In the bridge class example above, we created the bridge between Student class a
 
 This method is mandatory to be called in the bridge class.
 ## Getters and Setters
+In the above example, the following getters and setters will be made:
+```php
+// Returns an iterable class of all the teachers for the loaded student
+foreach ($student->Teacher() as $teacher) {
+	echo $teacher['name'] . "\r\n";
+}
+
+// Returns a teacher model for Ms. Minchin.
+$teacher = $student->Teacher('Ms. Minchin');
+echo $teacher['email'];
+
+// Adds a teacher in the student_teacher bridge table.
+$student->addTeacher('Rasmus');
+
+// Removes a teacher
+$student->removeTeacher('Hagrid');
+
+// Returns a number of student's teacher with John Smith as its name.
+echo $student->hasTeacher('John Smith');
+// Long method
+echo $student->Teacher('John Smith')->action('count')->getOne();
+// Longer method
+echo $student->ref('Student_Teacher')->ref('Teacher')->action('count')->getOne();
+```
+## TODO
+- Use arrays as arguments for getters and setters.
