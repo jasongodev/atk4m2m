@@ -17,9 +17,7 @@ You may just place a JSON string or serialize PHP array of the teachers ID in a 
 Therefore a bridge table is needed. Something like this is possible for the relationships above:
 
 student_teacher table
---------------------------
 student_id	|	teacher_id
---------------------------
 	3		|		1
 	3		|		2
 	3		|		5
@@ -93,7 +91,9 @@ In the usual ATK4 Model, hasMany() defaults to id and table’s name + id as the
 
 ## Method $this-\>hasManyToMany()
 This method is placed on the first model and the target model in the many-to-many relationships.
-
+```php
+$this->hasManyToMany(Student::class, Student_Teacher::class, 'name');
+```
 The first argument is a class name of the target model, in our case it’s the Teacher::class.
 
 The second argument is the bridge class, Student_Teacher::class. It is customary to name the class and the table similarly, only differing in the case of the first letter (e.g., Student class and student table) but you can use whatever names you want.
