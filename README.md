@@ -15,7 +15,7 @@ For example, Student #3 have 4 teachers, Teachers #1, #2, #5, and #9. You can’
 You may just place a JSON string or serialize PHP array of the teachers ID in a column “teachers” but this will not be searchable in SQL.
 
 Therefore a bridge table is needed. Something like this is possible for the relationships above:
-
+```sql
 student_teacher table
 student_id	|	teacher_id
 	3		|		1
@@ -24,7 +24,7 @@ student_id	|	teacher_id
 	3		|		9
 	5		|		9
 	5		|		9
-
+```
 As you can see, students may have many teachers and teachers may have many students as well. Overlaps are possible with many-to-many relationships.
 ## Usage of atk4m2m
 Atk4m2m provides helper functions that makes it easy to define many-to-many relationship. At the heart of the trait are functions hasManyToMany() and addBridgeBetween(). But first we discuss how to create ATK4 models suitable for our trait.
@@ -85,9 +85,9 @@ To use the trait, place this in all the classes and bridge classes that are invo
 ```php
 use \sirjasongo\atk4m2m\ManyToMany;
 ```
-Atk4m2m enforces the use of constants our_field and their_field to refer to the table fields that will be referenced in the bridge table. The our_field is the table field that primarily identifies the student while the their_field is the name of the field in the bridge table that corresponds to the student’s id.
+Atk4m2m enforces the use of constants our\_field and their\_field to refer to the table fields that will be referenced in the bridge table. The our\_field is the table field that primarily identifies the student while the their\_field is the name of the field in the bridge table that corresponds to the student’s id.
 
-In the usual ATK4 Model, hasMany() defaults to id and table’s name + id as the our_field and their_field respectively. Due to the complex declarations needed for many-to-many relationships, using constants within the model ensures clear patterns of referencing across different functions.
+In the usual ATK4 Model, hasMany() defaults to id and table’s name + id as the our\_field and their\_field respectively. Due to the complex declarations needed for many-to-many relationships, using constants within the model ensures clear patterns of referencing across different functions.
 
 ## Method $this-\>hasManyToMany()
 This method is placed on the first model and the target model in the many-to-many relationships.
@@ -96,7 +96,7 @@ $this->hasManyToMany(Student::class, Student_Teacher::class, 'name');
 ```
 The first argument is a class name of the target model, in our case it’s the Teacher::class.
 
-The second argument is the bridge class, Student_Teacher::class. It is customary to name the class and the table similarly, only differing in the case of the first letter (e.g., Student class and student table) but you can use whatever names you want.
+The second argument is the bridge class, Student\_Teacher::class. It is customary to name the class and the table similarly, only differing in the case of the first letter (e.g., Student class and student table) but you can use whatever names you want.
 
 The third argument is optional and refers to the name of the field that will be used in model referencing. It defaults to “id” but you can define a different field, in our example it is the teacher’s name that will be referenced.
 
