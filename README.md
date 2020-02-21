@@ -145,5 +145,3 @@ echo $student->hasTeacher('John Smith,Elon Musk,Mark Zuck');
 // Any of the teachers in the array
 echo $student->hasTeacher(['John Smith', 'Elon Musk', 'Mark Zuck']);
 ```
-## TODO
-- Use arrays as arguments for getters and setters.
