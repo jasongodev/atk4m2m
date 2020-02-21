@@ -139,6 +139,11 @@ echo $student->hasTeacher('John Smith');
 echo $student->Teacher('John Smith')->action('count')->getOne();
 // Longer method
 echo $student->ref('Student_Teacher')->ref('Teacher')->action('count')->getOne();
+
+// Any of the teachers in the comma-separated string
+echo $student->hasTeacher('John Smith,Elon Musk,Mark Zuck');
+// Any of the teachers in the array
+echo $student->hasTeacher(['John Smith', 'Elon Musk', 'Mark Zuck']);
 ```
 ## TODO
 - Use arrays as arguments for getters and setters.
